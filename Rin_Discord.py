@@ -9,26 +9,6 @@ client.remove_command("help")
 async def on_ready():
     await client.change_presence(status=discord.Status.online, activity=discord.Game("with Sakura"))
     print("I'm ready to help")
-    
-@client.command()
-async def help(ctx):
-    help = discord.Embed(
-        colour=discord.Colour.dark_red(),
-        title="Help Command"
-        des="My functions"
-    )
-    embed.set_author(name="Rin Tohsaka", url="https://cdn.discordapp.com/attachments/691010789439570061/691275247885746176/Rin.jpg")
-    embed.add_field(name="ping", value="I reply with your latency and a pong!")
-    embed.add_field(name="8ball", value="I could help you make decisions. It's not like i want to!")
-    embed.add_field(name="anifact", value="I could interest you with an Anime fact")
-    embed.add_field(name="clear", value="I'm going to show off the Power of the Tohsakas by making your messages disappear")
-    embed.add_field(name="kick", value="I'll kick you out if you aren't useful!")
-    embed.add_field(name="ban", value="I could ban you from returning here!")
-    embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.")
-    embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!")
-
-    await ctx.send(embed=help)
-
 
 @client.command()
 async def ping(ctx):
