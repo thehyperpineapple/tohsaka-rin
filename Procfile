@@ -1,1 +1,1 @@
-worker Rin_Discord.py
+worker python Rin_Discord.py
