@@ -23,7 +23,7 @@ async def unload(ctx, extension):
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(colour=discord.Colour.dark_red(), title="Help Command", description="This is what I can do")
+    embed = discord.Embed(colour=discord.Colour.dark_red(), title="Help Command", description="My prefix is - and this is what I can do")
     embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
     embed.add_field(name="help", value="Displays this Message.", inline=False)
     embed.add_field(name="ping", value="I reply with your latency and a pong!", inline=False)
