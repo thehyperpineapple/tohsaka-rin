@@ -3,7 +3,7 @@ import discord
 from discord.ext import commands, tasks
 import os
 
-client = commands.Bot(command_prefix="r/")
+client = commands.Bot(command_prefix="-")
 client.remove_command("help")
 
 @client.event
@@ -23,13 +23,13 @@ async def unload(ctx, extension):
 
 @client.command()
 async def help(ctx):
-    embed = discord.Embed(colour=discord.Colour.dark_red(), title="Help Command", description="My prefix is r/ and this is what I can do")
+    embed = discord.Embed(colour=discord.Colour.dark_red(), title="Help Command", description="My prefix is - and this is what I can do")
     embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
     embed.add_field(name="help", value="Displays this Message.", inline=False)
     embed.add_field(name="ping", value="I reply with your latency and a pong!", inline=False)
     embed.add_field(name="8ball", value="I could help you make decisions. It's not like I want to!", inline=False)
     embed.add_field(name="anifact", value="I could interest you with an Anime fact.", inline=False)
-    embed.add_field(name="clear", value="I'm going to show off the Power of the Tohsakas by making your messages disappear.", inline=False)
+    embed.add_field(name="clear", value="I'm going make your messages disappear.", inline=False)
     embed.add_field(name="kick", value="I'll kick you out if you aren't useful!", inline=False)
     embed.add_field(name="ban", value="I could ban you from returning here!", inline=False)
     embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.", inline=False)
@@ -58,7 +58,7 @@ async def _8ball(ctx, *, question):
                  "You're getting in the way !",
                  "Better not tell you now.",
                  "I'll nail you in the Medulla Oblongata, so why dont't you go away?",
-                 "A First-rate mage like myself could never reply to a hack like you!"
+                 "A First-rate mage like myself could never reply to a loser like you!"
                  "Don’t count on Me !",
                  "My reply is no.",
                  "I don't agree.",
