@@ -58,7 +58,6 @@ class anifact (commands.Cog):
         embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
         embed.add_field(name=f"{random.choice(facts)}")
         embed.set_footer(text="Programmed by Hyper/Pineapple#0452"
-
         await ctx.send(embed=embed)    
 
 
