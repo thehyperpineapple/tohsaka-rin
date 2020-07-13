@@ -7,8 +7,8 @@ class anifact (commands.Cog):
         self.client = client
 
     @commands.command()
-      async def anifact(self, ctx):
-        facts = ["Spirited Away was the first anime film to be nominated for and win an academy award.",
+        async def anifact(self, ctx):
+            facts = ["Spirited Away was the first anime film to be nominated for and win an academy award.",
                  "Sazae-san is the longest-running anime having more than 7500 episodes.",
                  "The anime Space Brothers includes a voice actor that recorded in outer space.",
                  "Animated Japanese films and television shows account for 60% of the world's animation based entertainment.",
@@ -54,12 +54,11 @@ class anifact (commands.Cog):
                  "Gon's Ultimate Attack is a reference to Rock, Paper and Scissor",
                  "Natsu's foster father is the Dragon Igneel",
                  "Natsu can absorb any flame without any problem"]
-                embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Facts", description="Here's an Anime Fact")
-                embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
-                embed.add_field(name=f"{random.choice(facts)}")
-                embed.set_footer(text="Programmed by Hyper/Pineapple#0452"
-
-                await ctx.send(embed=embed)
+            embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Facts", description="Here's an Anime Fact")
+            embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+            embed.add_field(name=f"{random.choice(facts)}")
+            embed.set_footer(text="Programmed by Hyper/Pineapple#0452"
+            await ctx.send(embed=embed)    
 
 
 
