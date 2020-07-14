@@ -54,8 +54,8 @@ class anifact (commands.Cog):
                  "Gon's Ultimate Attack is a reference to Rock, Paper and Scissor",
                  "Natsu's foster father is the Dragon Igneel",
                  "Natsu can absorb any flame without any problem"]
-        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Fact", description="Here's a fact")
-        embed.add_field(name= None, value=f"{random.choice(facts)}", inline=False)
+        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Fact")
+        embed.add_field(value=f"{random.choice(facts)}", inline=False)
         embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
         await ctx.send(embed=embed)    
 
