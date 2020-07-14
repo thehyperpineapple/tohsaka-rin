@@ -55,7 +55,7 @@ class anifact (commands.Cog):
                  "Natsu's foster father is the Dragon Igneel",
                  "Natsu can absorb any flame without any problem"]
         embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Fact", description=f"{random.choice(facts)}")
-        embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
+        embed.set_footer()
         await ctx.send(embed=embed)    
 
 
