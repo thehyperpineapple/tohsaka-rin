@@ -34,7 +34,7 @@ async def help(ctx):
     embed.add_field(name="ban", value="I could ban you from returning here!", inline=False)
     embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.", inline=False)
     embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!", inline=False)
-    embed.set_footer(text="Programmed by @thehyperpineapple#0452 © 2020")
+    embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
 
