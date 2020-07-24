@@ -48,7 +48,7 @@ class anifact (commands.Cog):
                  "God of Destruction die if the respective Supreme Kai is killed.",
                  "4 Universes were excluded from the Tournament of Power. This is because they had a High Mortal Rate.",
                  "Satan from Dragon Ball has actually died many times but it is assumed that he hasn't.",
-                 "In 1998 version of HxH Killua saw P*** and asked Gon to join him",
+                 "In 1998 version of HxH Killua saw P*** and asked Gon to join him in the act",
                  "In the manga Killua uses Fire instead of lightening",
                  "In the anime Leorio's main powers has not yet been revealed",
                  "Gon's Ultimate Attack is a reference to Rock, Paper and Scissor",
