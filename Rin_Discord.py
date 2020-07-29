@@ -77,7 +77,7 @@ async def welcome(ctx, member : discord.Member):
     responses=["https://tenor.com/bln55.gif",
                "https://tenor.com/bapEd.gif",
                "https://tenor.com/xNYY.gif",
-               "https://tenor.com/4dmK.gif:,
+               "https://tenor.com/4dmK.gif",
                "https://tenor.com/w5qb.gif"]
     await ctx.channel.purge(limit=1)
     await ctx.send(f"Welcome to the Server!{member.mention}")
