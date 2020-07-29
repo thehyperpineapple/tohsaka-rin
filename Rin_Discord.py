@@ -34,6 +34,7 @@ async def help(ctx):
     embed.add_field(name="ban", value="I could ban you from returning here!", inline=False)
     embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.", inline=False)
     embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!", inline=False)
+    embed.add_field(name="welcome", value="Welcome members to the server!", inline=False)
     embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
@@ -70,6 +71,18 @@ async def _8ball(ctx, *, question):
 async def say(ctx, *, msg):
     await ctx.message.delete()
     await ctx.send("{}" .format(msg))
+
+@client.command()
+async def welcome(ctx, member : discord.Member):
+    responses=["https://tenor.com/bln55.gif",
+               "https://tenor.com/bapEd.gif",
+               "https://tenor.com/xNYY.gif",
+               "https://tenor.com/4dmK.gif:,
+               "https://tenor.com/w5qb.gif"]
+    await ctx.channel.purge(limit=1)
+    await ctx.send(f"Welcome to the Server!{member.mention}")
+    await ctx.send(f"{random.choice(responses)}")
+
 
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
