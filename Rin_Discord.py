@@ -80,7 +80,7 @@ async def welcome(ctx, member : discord.Member):
                "https://tenor.com/4dmK.gif",
                "https://tenor.com/w5qb.gif"]
     await ctx.channel.purge(limit=1)
-    await ctx.send(f"Welcome to the Server!{member.mention}")
+    await ctx.send(f"Welcome to the Server! {member.mention}")
     await ctx.send(f"{random.choice(responses)}")
 
 
