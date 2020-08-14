@@ -29,12 +29,21 @@ async def help(ctx):
     embed.add_field(name="ping", value="I reply with your latency and a pong!", inline=False)
     embed.add_field(name="8ball", value="I could help you make decisions. It's not like I want to!", inline=False)
     embed.add_field(name="anifact", value="I could interest you with an Anime fact.", inline=False)
+    embed.add_field(name="mod", value="I'll reply with moderation commands.", inline=False)
+    embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!", inline=False)
+    embed.add_field(name="welcome", value="Use this to eelcome members to the server!", inline=False)
+    embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
+    await ctx.send(embed=embed)
+    
+    
+@client.command()
+async def mod(ctx):
+    embed = discord.Embed(colour=discord.Colour.dark_red(), title="Moderation Commands", description="Here are the moderation commands")
+    embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
     embed.add_field(name="clear", value="I'm going make your messages disappear.", inline=False)
     embed.add_field(name="kick", value="I'll kick you out if you aren't useful!", inline=False)
     embed.add_field(name="ban", value="I could ban you from returning here!", inline=False)
     embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.", inline=False)
-    embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!", inline=False)
-    embed.add_field(name="welcome", value="Welcome members to the server!", inline=False)
     embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
