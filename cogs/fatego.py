@@ -63,7 +63,7 @@ class mod (commands.Cog):
         await ctx.send(embed=embed)
 
     @commands.command()
-    async def event(ctx):
+    async def event(self, ctx):
         await ctx.send("Here is a link for the Current/Upcoming Events in Fate Grand Order (NA) \nhttps://fategrandorder.fandom.com/wiki/Event_List_(US)")    
 
 
