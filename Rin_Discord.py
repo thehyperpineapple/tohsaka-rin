@@ -32,6 +32,7 @@ async def help(ctx):
     embed.add_field(name="mod", value="I'll reply with moderation commands.", inline=False)
     embed.add_field(name="say", value="I really don't want to do this but I'll say whatever you want me to!", inline=False)
     embed.add_field(name="welcome", value="Use this to eelcome members to the server!", inline=False)
+    embed.add_field(name="fategrandorder", value="I can show a few commands concering Fate/Grand Order", inline=False)
     embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
     await ctx.send(embed=embed)
     
