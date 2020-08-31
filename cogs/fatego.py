@@ -61,7 +61,7 @@ class mod (commands.Cog):
     async def classchart(self, ctx):
         embed = discord.Embed(colour=discord.Colour.dark_red(), title="Class Relationship Chart", description="Adjust your party everytime you're up against enemies")
         embed.set_thumbnail(url="https://imgur.com/KC2QvmL.png")
-        emebd.set_image(url="https://imgur.com/aMG7KCB.png")
+        embed.set_image(url="https://imgur.com/aMG7KCB.png")
         await ctx.send(embed=embed)
 
     @commands.command()
