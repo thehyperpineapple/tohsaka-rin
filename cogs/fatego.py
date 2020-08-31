@@ -52,14 +52,16 @@ class mod (commands.Cog):
 
     @commands.command()
     async def banner(self, ctx):
+        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Upcoming banners in Fate/Grand Order (NA)", description="Remember to not waste SQ")
         embed.set_thumbnail(url="https://imgur.com/KC2QvmL.png")
-        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Upcoming banners in Fate/Grand Order (NA)", description="Remember to not waste SQ", url="https://imgur.com/CxpAefZ")
+        embed.set_image(url="https://imgur.com/CxpAefZ.png")
         await ctx.send(embed = embed)
 
     @commands.command()
     async def classchart(self, ctx):
+        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Class Relationship Chart", description="Adjust your party everytime you're up against enemies")
         embed.set_thumbnail(url="https://imgur.com/KC2QvmL.png")
-        embed = discord.Embed(colour=discord.Colour.dark_red(), title="Class Relationship Chart", description="Adjust your party everytime you're up against enemies", url="https://imgur.com/aMG7KCB")
+        emebd.set_image(url="https://imgur.com/aMG7KCB.png")
         await ctx.send(embed=embed)
 
     @commands.command()
