@@ -29,7 +29,7 @@ class mod (commands.Cog):
         embed.add_field(name="Limit Breaking Craft Esscences", value="Craft Essences have certain effects while playing. Limit breaking them increases their level cap thus increasing their effects as they increase in levels", inline=False)
         embed.add_field(name="Servant Skills", value="Upgrading Servant Skills are important but it can be done once you've got yourself a decent party", inline=False)
         embed.add_field(name="Playing for Events", value="If there is an event going on focus on it rather than story as events give you a SR Servant once you finish the main quest. You can further get ascension materials and additional copies to increase the NP level. If the event is the rerun then it's your last chance to get them", inline=False)
-        embed.add_field(name="Levelling up servants", value="Only use embers(preferably 4 star embers with the same class) for levelling up servants. Do not use other servants to level up others", inline=False)
+        embed.add_field(name="Levelling up servants", value="Only use embers (preferably 4 star embers with the same class) for levelling up servants. Do not use other servants to level up others", inline=False)
         embed.add_field(name="Locking Servants", value="Remember to Lock Servants and CEs you use so that you don't accidentally burn them", inline=False)
         embed.add_field(name="Class Advantages", value="Class advantages and disadvantages matter in this game. Use the command `classchart` to get a class affinity chart", inline=False)
         embed.add_field(name="Mash", value="Feed best Kohai with embers. She's good", inline=False)
@@ -66,7 +66,7 @@ class mod (commands.Cog):
 
     @commands.command()
     async def event(self, ctx):
-        await ctx.send("Here is a link for the Current/Upcoming Events in Fate Grand Order (NA) \nhttps://fategrandorder.fandom.com/wiki/Event_List_(US)")    
+        await ctx.send("**Here is a link for the Current/Upcoming Events in Fate Grand Order (NA)** \nhttps://fategrandorder.fandom.com/wiki/Event_List_(US)")    
 
 
 
