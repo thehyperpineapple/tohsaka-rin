@@ -8,7 +8,7 @@ client.remove_command("help")
 
 @client.event
 async def on_ready():
-    await client.change_presence(status=discord.Status.online, activity=discord.Game("with Magic"))
+    await client.change_presence(status=discord.Status.online, activity=discord.Game("with Magecraft"))
     print("I'm ready to help")
 
 @client.command()
