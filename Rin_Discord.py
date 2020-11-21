@@ -92,6 +92,11 @@ async def welcome(ctx, member : discord.Member):
     await ctx.channel.purge(limit=1)
     await ctx.send(f"Welcome to the Server! {member.mention}")
     await ctx.send(f"{random.choice(responses)}")
+    
+@client.command()
+async def stfu(ctx):
+    response=["https://imgur.com/27EwQlQ.png"]
+    await ctx.send(f"{random.choice(response)}")
 
 
 for filename in os.listdir("./cogs"):
