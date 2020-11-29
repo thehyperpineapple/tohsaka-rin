@@ -99,7 +99,7 @@ async def stfu(ctx):
     await ctx.send(f"{random.choice(response)}")
 
     
-@client.command(aliases=["no u"])
+@client.command(aliases=["no_u"])
 async def nou(ctx, member : discord.Member):
     resp=["https://imgur.com/4vHTyA0.png",
           "https://imgur.com/JpsfBUk.png",
