@@ -98,6 +98,19 @@ async def stfu(ctx):
     response=["https://imgur.com/27EwQlQ.png"]
     await ctx.send(f"{random.choice(response)}")
 
+    
+@client.command(aliases=["no u"])
+async def nou(ctx, member : discord.Member):
+    resp=["https://imgur.com/4vHTyA0.png",
+          "https://imgur.com/JpsfBUk.png",
+          "https://imgur.com/d38LlOi.png",
+          "https://imgur.com/XRvDfKr.png",
+          "https://imgur.com/x2kwbCR.png",
+          "https://imgur.com/03xJOlN.png",
+          "https://imgur.com/zjBG0L3.png",
+          "https://imgur.com/M2ZVe1M.png"]
+    await ctx.send(f"{member.mention} was no u-ed")
+    await ctx.send(f"{random.choice(resp)}")
 
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
