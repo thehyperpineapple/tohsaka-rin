@@ -45,7 +45,7 @@ async def mod(ctx):
     embed.add_field(name="kick", value="I'll kick you out if you aren't useful!", inline=False)
     embed.add_field(name="ban", value="I could ban you from returning here!", inline=False)
     embed.add_field(name="unban", value="Okay I'm sorry! I'll let you back in.", inline=False)
-    embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
+    embed.set_footer(text="Programmed by HyperPineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
 
