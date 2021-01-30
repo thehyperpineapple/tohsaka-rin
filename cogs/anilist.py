@@ -627,7 +627,7 @@ def userSearch(result):
                 value=favs,
                 inline=False,
             
-    except : #HTTPException
+    except: #HTTPException
             pass
      )
     try:
@@ -636,7 +636,7 @@ def userSearch(result):
                 value=mavs,
                 inline=False,
             
-     except :#HTTPException
+     except: #HTTPException
             pass
         )
     
