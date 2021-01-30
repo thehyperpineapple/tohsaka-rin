@@ -570,10 +570,10 @@ def userSearch(result):
     
     mavs = ""
     if manFav:
-        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
+        for x in result["data"]["User"]["favourites"]["manga"]["nodes"]:
             mavs += (
                 "[{} ({})]({})".format(
-                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
+                    (x["title"]["romaji"]), (x["title"]["english"]), x["siteUrl"]
                 )
                 + "\n\n"
             )
