@@ -627,7 +627,7 @@ def userSearch(result):
             value=favs,
             inline=False,
      )       
-    except:
+    except HTTPException:
         pass
     
     try:
@@ -636,7 +636,7 @@ def userSearch(result):
             value=mavs,
             inline=False,
      )       
-    except:
+    except HTTPException:
         pass
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
