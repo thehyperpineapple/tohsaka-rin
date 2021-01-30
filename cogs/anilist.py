@@ -624,10 +624,12 @@ def userSearch(result):
     embedUser.add_field(
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
+            inline=False,
      )
     embedUser.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
             value=favs,
+            inline=False
         )
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
