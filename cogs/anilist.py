@@ -551,11 +551,13 @@ def generateUserInfo(userName):
 
 def userSearch(result):
     try:
-        desc = removeTags(result["data"]["User"]["about"]).replace("&quot;", '"')
+        desc = removeTags(result["data"]["User"]).replace("&quot;", '"')
     except:
         desc = ""
     
     aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
+    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
+    
     favs = ""
     if aniFav:
         for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
@@ -565,6 +567,17 @@ def userSearch(result):
                 )
                 + "\n\n"
             )
+    
+    mavs = ""
+    if manFav:
+        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
+            mavs += (
+                "[{} ({})]({})".format(
+                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
+                )
+                + "\n\n"
+            )
+    
     embedUser = discord.Embed(
         colour=discord.Colour.dark_red(),
         title=result["data"]["User"]["name"],
@@ -612,7 +625,10 @@ def userSearch(result):
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
      )
-    
+    embedMan.add_field(
+            name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
+            value=favs,
+        )
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
     return embedUser
