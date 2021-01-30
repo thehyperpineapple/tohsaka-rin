@@ -561,8 +561,7 @@ def userSearch(result):
     favs = ""
     if aniFav:
         for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
-            if fav>0:
-                favs += (
+            favs += (
                     "[{} ({})]({})".format(
                         (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
                     )
@@ -572,15 +571,12 @@ def userSearch(result):
     mavs = ""
     if manFav:
         for mav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
-            if mav>0:
-                 mavs += (
+            mavs += (
                      "[{} ({})]({})".format(
                          (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
                      )
                      + "\n\n"
                 )
-            else:
-                pass
     
     embedUser = discord.Embed(
         colour=discord.Colour.dark_red(),
@@ -625,22 +621,23 @@ def userSearch(result):
         value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
         inline=True,
     )
-    if favs>0:
+    try:
         embedUser.add_field(
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
             inline=False,
-    else:
+     )       
+    except:
         pass
-     )
-    if mavs>0:
+    
+    try:
         embedUser.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
             value=mavs,
             inline=False,
+     )       
     else:
         pass
-     )
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
     return embedUser
