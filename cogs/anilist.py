@@ -561,22 +561,26 @@ def userSearch(result):
     favs = ""
     if aniFav:
         for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
-            favs += (
-                "[{} ({})]({})".format(
-                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
+            if fav>0:
+                favs += (
+                    "[{} ({})]({})".format(
+                        (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
+                    )
+                    + "\n\n"
                 )
-                + "\n\n"
-            )
     
     mavs = ""
     if manFav:
         for mav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
-            mavs += (
-                "[{} ({})]({})".format(
-                    (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
+            if mav>0:
+                 mavs += (
+                     "[{} ({})]({})".format(
+                         (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
+                     )
+                     + "\n\n"
                 )
-                + "\n\n"
-            )
+            else:
+                pass
     
     embedUser = discord.Embed(
         colour=discord.Colour.dark_red(),
@@ -621,22 +625,20 @@ def userSearch(result):
         value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
         inline=True,
     )
-    try:
+    if favs>0:
         embedUser.add_field(
-                name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
-                value=favs,
-                inline=False,
-            
-    except: #HTTPException
+            name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
+            value=favs,
+            inline=False,
+    else:
         pass
      )
-    try:
+    if mavs>0:
         embedUser.add_field(
-                name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-                value=mavs,
-                inline=False,
-            
-     except: #HTTPException
+            name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
+            value=mavs,
+            inline=False,
+    else:
         pass
      )
     
