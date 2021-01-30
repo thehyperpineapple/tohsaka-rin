@@ -570,10 +570,10 @@ def userSearch(result):
     
     mavs = ""
     if manFav:
-        for x in result["data"]["User"]["favourites"]["manga"]["nodes"]:
+        for mav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
             mavs += (
                 "[{} ({})]({})".format(
-                    (x["title"]["romaji"]), (x["title"]["english"]), x["siteUrl"]
+                    (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
                 )
                 + "\n\n"
             )
@@ -621,15 +621,23 @@ def userSearch(result):
         value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
         inline=True,
     )
-    embedUser.add_field(
-            name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
-            value=favs,
-            inline=False,
+    try:
+        embedUser.add_field(
+                name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
+                value=favs,
+                inline=False,
+            
+    except HTTPException:
+                pass
      )
-    embedUser.add_field(
-            name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=mavs,
-            inline=False
+    try:
+        embedUser.add_field(
+                name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
+                value=mavs,
+                inline=False,
+            
+     except HTTPException:
+                pass
         )
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
