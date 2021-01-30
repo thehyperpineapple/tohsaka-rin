@@ -3,9 +3,6 @@ import discord
 
 from discord.ext import commands
 
-class anilist (commands.Cog):
-    def __init__(self, client):
-        self.client = client
 
 
 def searchChar():
@@ -650,7 +647,10 @@ def userManga(result):
 
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
         await ctx.send("An error occurred: {}".format(str(error)))
-
+        
+class anilist (commands.Cog):
+    def __init__(self, client):
+        self.client = client
 
     @commands.command(aliases=["ANIME", "a"])
     async def anime(self, ctx, *, title):
