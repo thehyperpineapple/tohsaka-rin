@@ -627,8 +627,8 @@ def userSearch(result):
                 value=favs,
                 inline=False,
             
-    except HTTPException:
-                pass
+    except : #HTTPException
+            pass
      )
     try:
         embedUser.add_field(
@@ -636,8 +636,8 @@ def userSearch(result):
                 value=mavs,
                 inline=False,
             
-     except HTTPException:
-                pass
+     except :#HTTPException
+            pass
         )
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
