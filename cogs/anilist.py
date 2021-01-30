@@ -578,7 +578,7 @@ def userSearch(result):
                      )
                      + "\n\n"
                 )
-    if mav==0:
+    if mavs==0:
         embedUser = discord.Embed(
             colour=discord.Colour.dark_red(),
             title=result["data"]["User"]["name"],
@@ -630,7 +630,7 @@ def userSearch(result):
         embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
         return embedUser
 
-    elif fav==0:
+    elif favs==0:
         embedUser = discord.Embed(
             colour=discord.Colour.dark_red(),
             title=result["data"]["User"]["name"],
@@ -734,6 +734,7 @@ def userSearch(result):
         embedUser.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
             value=favs,
+            inline=False,
         )       
         embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
         return embedUser
