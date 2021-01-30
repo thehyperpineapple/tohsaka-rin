@@ -556,22 +556,12 @@ def userSearch(result):
         desc = ""
     
     aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
-    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
     favs = ""
     if aniFav:
         for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
             favs += (
                 "[{} ({})]({})".format(
                     (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
-                )
-                + "\n\n"
-            )
-    mavs = ""
-    if manFav:
-        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
-            mavs += (
-                "[{} ({})]({})".format(
-                    (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
                 )
                 + "\n\n"
             )
@@ -621,11 +611,7 @@ def userSearch(result):
     embedUser.add_field(
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
-        )
-    embedMan.add_field(
-            name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=mavs,
-        )
+     )
     
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
