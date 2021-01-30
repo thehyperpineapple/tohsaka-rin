@@ -625,7 +625,7 @@ def userSearch(result):
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
      )
-    embedMan.add_field(
+    embedUser.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
             value=favs,
         )
