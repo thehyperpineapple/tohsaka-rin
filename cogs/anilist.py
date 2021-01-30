@@ -636,7 +636,7 @@ def userSearch(result):
             value=mavs,
             inline=False,
      )       
-    else:
+    except:
         pass
     
     embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
