@@ -628,7 +628,7 @@ def userSearch(result):
      )
     embedUser.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=favs,
+            value=mavs,
             inline=False
         )
     
