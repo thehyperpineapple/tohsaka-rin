@@ -1,2 +1,3 @@
 discord.py
 asyncio
+requests==2.24.0
