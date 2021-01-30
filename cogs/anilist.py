@@ -554,7 +554,27 @@ def userSearch(result):
         desc = removeTags(result["data"]["User"]["about"]).replace("&quot;", '"')
     except:
         desc = ""
-
+    
+    aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
+    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
+    favs = ""
+    if aniFav:
+        for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
+            favs += (
+                "[{} ({})]({})".format(
+                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
+                )
+                + "\n\n"
+            )
+    mavs = ""
+    if manFav:
+        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
+            mavs += (
+                "[{} ({})]({})".format(
+                    (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
+                )
+                + "\n\n"
+            )
     embedUser = discord.Embed(
         colour=discord.Colour.dark_red(),
         title=result["data"]["User"]["name"],
@@ -598,52 +618,18 @@ def userSearch(result):
         value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
         inline=True,
     )
-    embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-    return embedUser
-
-
-def userAnime(result):
-    aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
-    embedAni = discord.Embed(colour=discord.Colour.dark_red())
-
-    favs = ""
-    if aniFav:
-        for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
-            favs += (
-                "[{} ({})]({})".format(
-                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
-                )
-                + "\n\n"
-            )
-        embedAni.add_field(
+    embedUser.add_field(
             name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
         )
-        embedAni.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-    return embedAni
-
-
-def userManga(result):
-    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
-    embedMan = discord.Embed(colour=discord.Colour.dark_red())
-
-    favs = ""
-    if manFav:
-        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
-            favs += (
-                "[{} ({})]({})".format(
-                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
-                )
-                + "\n\n"
-            )
-        embedMan.add_field(
+    embedMan.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=favs,
+            value=mavs,
         )
-        embedMan.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-        return embedMan
-
-
+    
+    
+    embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
+    return embedUser
 
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
         await ctx.send("An error occurred: {}".format(str(error)))
@@ -671,13 +657,7 @@ class anilist (commands.Cog):
             try:
                 userEmbed = userSearch(result)
                 await ctx.send(embed=userEmbed)
-
-                userAnimeEmbed = userAnime(result)
-                await ctx.send(embed=userAnimeEmbed)
-
-                userMangaEmbed = userManga(result)
-                await ctx.send(embed=userMangaEmbed)
-
+                
             except HTTPException:
                 pass
         else:
