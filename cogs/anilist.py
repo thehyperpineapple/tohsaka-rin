@@ -2,6 +2,7 @@ import requests
 import discord
 
 from discord.ext import commands
+from discord.client import HTTPException
 
 
 
