@@ -708,26 +708,26 @@ class anilist (commands.Cog):
         embed = discord.Embed(
             colour=discord.Colour.dark_red(),
             title="AniList Search Commands",
-            description="Commands that can be used to access AniList",
+            description="Anilist Commands",
         )
         embed.add_field(
-            name="anime <title>", value="Search anime by title or ID.", inline=False
+            name="anime", value="Search anime by title or ID.", inline=False
         )
         embed.add_field(
-            name="manga <title>", value="Search manga by title or ID.", inline=False
+            name="manga", value="Search manga by title or ID.", inline=False
         )
         embed.add_field(
-            name="user <username>",
+            name="user",
             value="Search up a user by their username.",
             inline=False,
         )
         embed.add_field(
-            name="studio <studio name>",
+            name="studio",
             value="Search a studio by their name.",
             inline=False,
         )
         embed.add_field(
-            name="char <character name>",
+            name="char",
             value="Search a character by their name.",
             inline=False,
         )
