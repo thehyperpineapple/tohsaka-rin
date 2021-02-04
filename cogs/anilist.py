@@ -2,7 +2,7 @@ import requests
 import discord
 
 from discord.ext import commands
-from discord.client import HTTPException
+
 
 
 
@@ -557,7 +557,7 @@ def userSearch(result):
         desc = ""
 
     embedUser = discord.Embed(
-        colour=discord.Colour.dark_red()),
+        colour=discord.Colour.dark_red(),
         title=result["data"]["User"]["name"],
         url=result["data"]["User"]["siteUrl"],
         description=desc,
@@ -604,7 +604,6 @@ def userSearch(result):
 
 
 def userAnime(result):
-
     aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
     embedAni = discord.Embed(colour=discord.Colour.dark_red())
 
@@ -626,7 +625,6 @@ def userAnime(result):
 
 
 def userManga(result):
-
     manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
     embedMan = discord.Embed(colour=discord.Colour.dark_red())
 
@@ -661,9 +659,8 @@ class anilist (commands.Cog):
         embed = mangaSearch(title)
         await ctx.send(embed=embed)
 
-
     @commands.command(aliases=["USER", "u"])
-    async def user(ctx, *, userName):
+    async def user(self, ctx, *, userName):
         result = generateUserInfo(userName)
         if result:
             try:
@@ -676,7 +673,7 @@ class anilist (commands.Cog):
                 userMangaEmbed = userManga(result)
                 await ctx.send(embed=userMangaEmbed)
 
-            except : #HTTPException
+            except HTTPException:
                 pass
         else:
             await ctx.send(embed=userError(userName))
