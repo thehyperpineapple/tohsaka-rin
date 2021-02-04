@@ -552,194 +552,99 @@ def generateUserInfo(userName):
 
 def userSearch(result):
     try:
-        desc = removeTags(result["data"]["User"]).replace("&quot;", '"')
+        desc = removeTags(result["data"]["User"]["about"]).replace("&quot;", '"')
     except:
         desc = ""
-    
+
+    embedUser = discord.Embed(
+        colour=discord.Colour.dark_red()),
+        title=result["data"]["User"]["name"],
+        url=result["data"]["User"]["siteUrl"],
+        description=desc,
+    )
+
+    embedUser.add_field(
+        name="Total Anime",
+        value=result["data"]["User"]["statistics"]["anime"]["count"],
+        inline=True,
+    )
+    embedUser.add_field(
+        name="Days Watched",
+        value=round(
+            int(
+                (result["data"]["User"]["statistics"]["anime"]["minutesWatched"]) / 1440
+            ),
+            1,
+        ),
+        inline=True,
+    )
+    embedUser.add_field(
+        name="Mean Score",
+        value=result["data"]["User"]["statistics"]["anime"]["meanScore"],
+        inline=True,
+    )
+
+    embedUser.add_field(
+        name="Total Manga",
+        value=result["data"]["User"]["statistics"]["manga"]["count"],
+        inline=True,
+    )
+    embedUser.add_field(
+        name="Chapters Read",
+        value=result["data"]["User"]["statistics"]["manga"]["chaptersRead"],
+        inline=True,
+    )
+    embedUser.add_field(
+        name="Mean Score",
+        value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
+        inline=True,
+    )
+    embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
+    return embedUser
+
+
+def userAnime(result):
+
     aniFav = result["data"]["User"]["favourites"]["anime"]["nodes"]
-    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
-    
+    embedAni = discord.Embed(colour=discord.Colour.dark_red())
+
     favs = ""
     if aniFav:
         for fav in result["data"]["User"]["favourites"]["anime"]["nodes"]:
             favs += (
-                    "[{} ({})]({})".format(
-                        (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
-                    )
-                    + "\n\n"
+                "[{} ({})]({})".format(
+                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
                 )
-    
-    mavs = ""
+                + "\n\n"
+            )
+        embedAni.add_field(
+            name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
+            value=favs,
+        )
+        embedAni.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
+    return embedAni
+
+
+def userManga(result):
+
+    manFav = result["data"]["User"]["favourites"]["manga"]["nodes"]
+    embedMan = discord.Embed(colour=discord.Colour.dark_red())
+
+    favs = ""
     if manFav:
-        for mav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
-            mavs += (
-                     "[{} ({})]({})".format(
-                         (mav["title"]["romaji"]), (mav["title"]["english"]), mav["siteUrl"]
-                     )
-                     + "\n\n"
+        for fav in result["data"]["User"]["favourites"]["manga"]["nodes"]:
+            favs += (
+                "[{} ({})]({})".format(
+                    (fav["title"]["romaji"]), (fav["title"]["english"]), fav["siteUrl"]
                 )
-    if ((mavs==0) and (favs>=0)):
-        embedUser = discord.Embed(
-            colour=discord.Colour.dark_red(),
-            title=result["data"]["User"]["name"],
-            url=result["data"]["User"]["siteUrl"],
-            description=desc,
-        )
-
-        embedUser.add_field(
-            name="Total Anime",
-            value=result["data"]["User"]["statistics"]["anime"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Days Watched",
-            value=round(
-                int(
-                    (result["data"]["User"]["statistics"]["anime"]["minutesWatched"]) / 1440
-                ),
-                1,
-            ),
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["anime"]["meanScore"],
-            inline=True,
-        )
-
-        embedUser.add_field(
-            name="Total Manga",
-            value=result["data"]["User"]["statistics"]["manga"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Chapters Read",
-            value=result["data"]["User"]["statistics"]["manga"]["chaptersRead"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
-            value=favs,
-            inline=False,
-        )       
-        embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-        return embedUser
-
-    elif ((favs==0) and (mavs>=0)):
-        embedUser = discord.Embed(
-            colour=discord.Colour.dark_red(),
-            title=result["data"]["User"]["name"],
-            url=result["data"]["User"]["siteUrl"],
-            description=desc,
-        )
-
-        embedUser.add_field(
-            name="Total Anime",
-            value=result["data"]["User"]["statistics"]["anime"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Days Watched",
-            value=round(
-                int(
-                    (result["data"]["User"]["statistics"]["anime"]["minutesWatched"]) / 1440
-                ),
-                1,
-            ),
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["anime"]["meanScore"],
-            inline=True,
-        )
-
-        embedUser.add_field(
-            name="Total Manga",
-            value=result["data"]["User"]["statistics"]["manga"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Chapters Read",
-            value=result["data"]["User"]["statistics"]["manga"]["chaptersRead"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
-            inline=True,
-        )
-        embedUser.add_field(
+                + "\n\n"
+            )
+        embedMan.add_field(
             name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=mavs,
-            inline=False,
-        )       
-        embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-        return embedUser
-
-    else:
-        embedUser = discord.Embed(
-            colour=discord.Colour.dark_red(),
-            title=result["data"]["User"]["name"],
-            url=result["data"]["User"]["siteUrl"],
-            description=desc,
-        )
-
-        embedUser.add_field(
-            name="Total Anime",
-            value=result["data"]["User"]["statistics"]["anime"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Days Watched",
-            value=round(
-                int(
-                    (result["data"]["User"]["statistics"]["anime"]["minutesWatched"]) / 1440
-                ),
-                1,
-            ),
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["anime"]["meanScore"],
-            inline=True,
-        )
-
-        embedUser.add_field(
-            name="Total Manga",
-            value=result["data"]["User"]["statistics"]["manga"]["count"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Chapters Read",
-            value=result["data"]["User"]["statistics"]["manga"]["chaptersRead"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name="Mean Score",
-            value=result["data"]["User"]["statistics"]["manga"]["meanScore"],
-            inline=True,
-        )
-        embedUser.add_field(
-            name=("{}'s Favourite Anime".format(result["data"]["User"]["name"])),
             value=favs,
-            inline=False,
         )
-        embedUser.add_field(
-            name=("{}'s Favourite Manga".format(result["data"]["User"]["name"])),
-            value=mavs,
-            inline=False,
-        )       
-        embedUser.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
-        return embedUser
-    async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
-        await ctx.send("An error occurred: {}".format(str(error)))
+        embedMan.set_thumbnail(url=result["data"]["User"]["avatar"]["large"])
+        return embedMan
         
 class anilist (commands.Cog):
     def __init__(self, client):
@@ -758,14 +663,20 @@ class anilist (commands.Cog):
 
 
     @commands.command(aliases=["USER", "u"])
-    async def user(self, ctx, *, userName):
+    async def user(ctx, *, userName):
         result = generateUserInfo(userName)
         if result:
             try:
                 userEmbed = userSearch(result)
                 await ctx.send(embed=userEmbed)
-                
-            except HTTPException:
+
+                userAnimeEmbed = userAnime(result)
+                await ctx.send(embed=userAnimeEmbed)
+
+                userMangaEmbed = userManga(result)
+                await ctx.send(embed=userMangaEmbed)
+
+            except : #HTTPException
                 pass
         else:
             await ctx.send(embed=userError(userName))
