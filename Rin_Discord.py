@@ -114,7 +114,7 @@ async def nou(ctx, member : discord.Member):
 
 @client.event
 async def on_message(message):
-    blacklist = ["🤏", "🤌"] 
+    blacklist = ["🤏", "🤌", "<:pinched:818867008723877948>"] 
     for emoji in blacklist:
         if emoji in message.content:
             await message.delete()
