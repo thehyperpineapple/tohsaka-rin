@@ -114,9 +114,12 @@ async def nou(ctx, member : discord.Member):
 
 @client.event
 async def on_message(message):
-    if "🤌" in message.content:
-        await message.delete()
-
+    blacklist = ["🤏", "🤌"] 
+    for emoji in blacklist:
+        if emoji in message.content:
+            await message.delete()
+            break
+   
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
