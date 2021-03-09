@@ -2,6 +2,9 @@ import random
 import discord
 from discord.ext import commands, tasks
 import os
+from dotenv import load_dotenv
+
+load_dotenv()
 
 client = commands.Bot(command_prefix="-")
 client.remove_command("help")
@@ -114,7 +117,7 @@ async def nou(ctx, member : discord.Member):
 
 @client.event
 async def on_message(message):
-    blacklist = ["🤏", "🤌", "<:pinched:818867008723877948>"] 
+    blacklist = os.environ["BLACKLIST"].split("|")
     for emoji in blacklist:
         if emoji in message.content:
             await message.delete()
