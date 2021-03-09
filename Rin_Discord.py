@@ -117,7 +117,7 @@ async def on_message(message):
     if ":pinched_fingers" in message.content:
         await client.delete(message)
 
-        for filename in os.listdir("./cogs"):
+for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
 
