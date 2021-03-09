@@ -112,7 +112,12 @@ async def nou(ctx, member : discord.Member):
     await ctx.send(f"{member.mention} was no u-ed")
     await ctx.send(f"{random.choice(resp)}")
 
-for filename in os.listdir("./cogs"):
+@client.event
+async def on_message(message):
+    if ":pinched_fingers" in message.content:
+        await client.delete(message)
+
+        for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
 
