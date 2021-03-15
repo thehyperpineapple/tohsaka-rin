@@ -167,12 +167,20 @@ async def nou(ctx, member: discord.Member):
 
 @client.event
 async def on_message(message):
-    # Delete messages that have blacklisted words
+    # Delete messages without attachments sent in image-only channels
+    image_channels = os.environ["IMAGE_CHANNELS"].split("|")
+    if (str(message.channel.id) in image_channels and not
+        message.attachments and
+        message.content[0] != "\\" and
+        message.content[:4] != "http"):
+        await message.delete()
+        return
+    # Delete messages containing blacklisted words
     blacklist = os.environ["BLACKLIST"].split("|")
     for emoji in blacklist:
         if emoji in message.content:
             await message.delete()
-            break
+            return
     await client.process_commands(message)
 
 
