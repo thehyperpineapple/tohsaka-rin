@@ -184,6 +184,26 @@ async def on_message(message):
     await client.process_commands(message)
 
 
+@client.event
+async def on_message_delete(message):
+    kaz = os.getenv("KAZ").split("|")
+    if str(message.author).split("#")[0] not in kaz:
+        return
+    webhooks = await message.channel.webhooks()
+    if len(webhooks) == 0:
+        webhook = await message.channel.create_webhook(name="kaz")
+    else:
+        webhook = webhooks[0]
+    try:
+        username = message.author.nick
+    except:
+        username = str(message.author).split("#")[0]
+    if len(message.content) == 0:
+        await webhooks[0].send("I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me", username=username, avatar_url=message.author.avatar_url)
+    else:
+        await webhooks[0].send(message.content, username=username, avatar_url=message.author.avatar_url)
+
+
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
