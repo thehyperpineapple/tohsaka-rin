@@ -186,6 +186,17 @@ async def on_message(message):
 
 @client.event
 async def on_message_delete(message):
+    image_channels = os.environ["IMAGE_CHANNELS"].split("|")
+    if (str(message.channel.id) in image_channels and not
+        message.attachments and
+        message.content[0] != "\\" and
+        message.content[:4] != "http"):
+        return
+    # Delete messages containing blacklisted words
+    blacklist = os.environ["BLACKLIST"].split("|")
+    for emoji in blacklist:
+        if emoji in message.content:
+            return
     kaz = os.getenv("KAZ").split("|")
     if str(message.author).split("#")[0] not in kaz:
         return
