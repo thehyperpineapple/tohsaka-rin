@@ -64,6 +64,11 @@ async def help(ctx):
         value="I can show a few commands concering Fate/Grand Order",
         inline=False,
     )
+    embed.add_field(
+        name="miscellaneous",
+        value="Kazama baka! This is all because of you!",
+        inline=False,
+    )
     embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
