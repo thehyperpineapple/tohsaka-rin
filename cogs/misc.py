@@ -158,6 +158,7 @@ class mod(commands.Cog):
     async def bully(self, ctx, member : discord.Member):
         responses = [
             "https://imgur.com/g005tMV.gif",
+            "https://tenor.com/view/mahou-shoujo-site-anime-gif-13078786",
         ]
         embed = discord.Embed(
             colour=discord.Colour.dark_red(),
