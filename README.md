@@ -1,5 +1,5 @@
 # Rin Tohsaka
-This was originally a private discord bot I created for a server and now I've decided to share the source code
+Originally a private discord bot. Now I've decided to make it pubically available
 
 ## Main functions
 - Allows moderators to use moderation commands such as Kick, Ban and Unban
