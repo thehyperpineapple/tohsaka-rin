@@ -8,4 +8,4 @@ This was originally a private discord bot I created for a server and now I've de
 
 
 Open to suggestions for improving the bot and adding more functions
-Discord Tag - HyperPineapple#0452
+</br>Discord Tag - HyperPineapple#0452
