@@ -3,7 +3,7 @@ import random
 from discord.ext import commands
 
 
-class mod(commands.Cog):
+class misc(commands.Cog):
     def __init__(self, client):
         self.client = client
 
