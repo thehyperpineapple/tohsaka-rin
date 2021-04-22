@@ -98,6 +98,11 @@ class mod(commands.Cog):
         responses = [
             "https://cdn.weeb.sh/images/SyMiVsnCZ.gif",
             "https://cdn.weeb.sh/images/SJvoNshCZ.gif",
+            "https://tenor.com/bln55.gif",
+            "https://tenor.com/bapEd.gif",
+            "https://tenor.com/xNYY.gif",
+            "https://tenor.com/4dmK.gif",
+            "https://tenor.com/w5qb.gif",
         ]
         embed = discord.Embed(
             colour=discord.Colour.dark_red(), description=f"Hello {member.mention}!"
@@ -166,13 +171,32 @@ class mod(commands.Cog):
         )
         embed.set_image(url=f"{random.choice(responses)}")
         await ctx.send(embed=embed)
+        
+    @commands.command()
+    async def nou(self, ctx, member : discord.Member):
+        responses = [
+            "https://imgur.com/4vHTyA0.png",
+            "https://imgur.com/JpsfBUk.png",
+            "https://imgur.com/d38LlOi.png",
+            "https://imgur.com/XRvDfKr.png",
+            "https://imgur.com/x2kwbCR.png",
+            "https://imgur.com/03xJOlN.png",
+            "https://imgur.com/zjBG0L3.png",
+            "https://imgur.com/M2ZVe1M.png",
+        ]
+        embed = discord.Embed(
+            colour=discord.Colour.dark_red(),
+            description=f"{member.mention} was no u-ed!",
+        )
+        embed.set_image(url=f"{random.choice(responses)}")
+        await ctx.send(embed=embed)
 
     @commands.command(aliases=["misc"])
     async def miscelllaneous(self, ctx):
         embed = discord.Embed(
             colour=discord.Colour.dark_red(),
             title="Miscellaneous Commands",
-            description="`slap` `lick` `hug` `pat` `poke` `stare` `highfive` `greet` `bite` `handhold` `tickle` `kill` `bully` ",
+            description="`slap` `lick` `hug` `pat` `poke` `stare` `highfive` `greet` `bite` `handhold` `tickle` `kill` `bully` `nou` ",
         )
         await ctx.send(embed=embed)
 
