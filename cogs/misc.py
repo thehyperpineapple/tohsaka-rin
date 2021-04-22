@@ -202,4 +202,4 @@ class misc(commands.Cog):
 
 
 def setup(client):
-    client.add_cog(mod(client))
+    client.add_cog(misc(client))
