@@ -57,7 +57,7 @@ async def help(ctx):
         inline=False,
     )
     embed.add_field(
-        name="welcome", value="Use this to eelcome members to the server!", inline=False
+        name="welcome", value="Use this to welcome members to the server!", inline=False
     )
     embed.add_field(
         name="fategrandorder",
@@ -69,7 +69,7 @@ async def help(ctx):
         value="Kazama baka! This is all because of you!",
         inline=False,
     )
-    embed.set_footer(text="Programmed by Hyper/Pineapple#0452 © 2020")
+    embed.set_footer(text="Programmed by HyperPineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
 
@@ -133,41 +133,6 @@ async def say(ctx, *, msg):
     await ctx.message.delete()
     await ctx.send("{}".format(msg))
 
-
-@client.command()
-async def welcome(ctx, member: discord.Member):
-    responses = [
-        "https://tenor.com/bln55.gif",
-        "https://tenor.com/bapEd.gif",
-        "https://tenor.com/xNYY.gif",
-        "https://tenor.com/4dmK.gif",
-        "https://tenor.com/w5qb.gif",
-    ]
-    await ctx.channel.purge(limit=1)
-    await ctx.send(f"Welcome to the Server! {member.mention}")
-    await ctx.send(f"{random.choice(responses)}")
-
-
-@client.command()
-async def stfu(ctx):
-    response = ["https://imgur.com/27EwQlQ.png"]
-    await ctx.send(f"{random.choice(response)}")
-
-
-@client.command(aliases=["no_u"])
-async def nou(ctx, member: discord.Member):
-    resp = [
-        "https://imgur.com/4vHTyA0.png",
-        "https://imgur.com/JpsfBUk.png",
-        "https://imgur.com/d38LlOi.png",
-        "https://imgur.com/XRvDfKr.png",
-        "https://imgur.com/x2kwbCR.png",
-        "https://imgur.com/03xJOlN.png",
-        "https://imgur.com/zjBG0L3.png",
-        "https://imgur.com/M2ZVe1M.png",
-    ]
-    await ctx.send(f"{member.mention} was no u-ed")
-    await ctx.send(f"{random.choice(resp)}")
 
 
 @client.event
