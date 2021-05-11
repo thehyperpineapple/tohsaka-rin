@@ -151,7 +151,12 @@ async def on_message(message):
         if emoji in message.content:
             await message.delete()
             return
+    # Grim's messages sent through webhook
     if message.author.bot and str(message.author).split("#")[0] == (os.getenv("GRIM") or "!GrimPyon"):
+        await message.delete()
+        return
+    # Grim's messages having emoji using the discord plugin
+    if message.author.id == 391874570740826122 and "https://thunar-db.nyaator.co" in message.content:
         await message.delete()
         return
     await client.process_commands(message)
