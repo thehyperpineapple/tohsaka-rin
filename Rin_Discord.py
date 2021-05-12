@@ -134,15 +134,16 @@ async def say(ctx, *, msg):
     await ctx.send("{}".format(msg))
 
 
-
 @client.event
 async def on_message(message):
     # Delete messages without attachments sent in image-only channels
     image_channels = os.environ["IMAGE_CHANNELS"].split("|")
-    if (str(message.channel.id) in image_channels and not
-        message.attachments and
-        message.content[0] != "\\" and
-        message.content[:4] != "http"):
+    if (
+        str(message.channel.id) in image_channels
+        and not message.attachments
+        and message.content[0] != "\\"
+        and message.content[:4] != "http"
+    ):
         await message.delete()
         return
     # Delete messages containing blacklisted words
@@ -152,11 +153,16 @@ async def on_message(message):
             await message.delete()
             return
     # Grim's messages sent through webhook
-    if message.author.bot and str(message.author).split("#")[0] == (os.getenv("GRIM") or "!GrimPyon"):
+    if message.author.bot and str(message.author).split("#")[0] == (
+        os.getenv("GRIM") or "!GrimPyon"
+    ):
         await message.delete()
         return
     # Grim's messages having emoji using the discord plugin
-    if message.author.id == 391874570740826122 and "https://thunar-db.nyaator.co" in message.content:
+    if message.author.id == 391874570740826122 and (
+        "https://thunar-db.nyaator.co" in message.content
+        or "https://cdn.discordapp.com/emojis" in message.content
+    ):
         await message.delete()
         return
     await client.process_commands(message)
@@ -165,10 +171,12 @@ async def on_message(message):
 @client.event
 async def on_message_delete(message):
     image_channels = os.environ["IMAGE_CHANNELS"].split("|")
-    if (str(message.channel.id) in image_channels and not
-        message.attachments and
-        message.content[0] != "\\" and
-        message.content[:4] != "http"):
+    if (
+        str(message.channel.id) in image_channels
+        and not message.attachments
+        and message.content[0] != "\\"
+        and message.content[:4] != "http"
+    ):
         return
     # Delete messages containing blacklisted words
     blacklist = os.environ["BLACKLIST"].split("|")
@@ -188,9 +196,15 @@ async def on_message_delete(message):
     except:
         username = str(message.author).split("#")[0]
     if len(message.content) == 0:
-        await webhooks[0].send("I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me", username=username, avatar_url=message.author.avatar_url)
+        await webhooks[0].send(
+            "I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me",
+            username=username,
+            avatar_url=message.author.avatar_url,
+        )
     else:
-        await webhooks[0].send(message.content, username=username, avatar_url=message.author.avatar_url)
+        await webhooks[0].send(
+            message.content, username=username, avatar_url=message.author.avatar_url
+        )
 
 
 for filename in os.listdir("./cogs"):
