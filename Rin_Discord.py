@@ -162,6 +162,7 @@ async def on_message(message):
     if message.author.id == 391874570740826122 and (
         "https://thunar-db.nyaator.co" in message.content
         or "https://cdn.discordapp.com/emojis" in message.content
+        or "https://i.imgur.com/" in message.content
     ):
         await message.delete()
         return
