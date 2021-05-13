@@ -159,14 +159,19 @@ async def on_message(message):
         await message.delete()
         return
     # Grim's messages having emoji using the discord plugin
-    if message.author.id == 391874570740826122 and (
-        "https://thunar-db.nyaator.co" in message.content
-        or "https://cdn.discordapp.com/emojis" in message.content
-        or "https://i.imgur.com/" in message.content
-    ):
-        await message.delete()
-        return
+    for image_host in os.environ["IMAGE_HOSTS"].split("|"):
+        if message.author.id == 391874570740826122 and image_host in message.content:
+            await message.delete()
+            return
     await client.process_commands(message)
+
+
+@client.event
+async def on_message_edit(before, after):
+    for image_host in os.environ["IMAGE_HOSTS"].split("|"):
+        if after.author.id == 391874570740826122 and image_host in after.content:
+            await after.delete()
+            return
 
 
 @client.event
