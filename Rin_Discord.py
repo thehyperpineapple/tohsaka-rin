@@ -213,7 +213,28 @@ async def on_message_delete(message):
             message.content, username=username, avatar_url=message.author.avatar_url
         )
 
+class Spoiler(commands.Cog):
+    def __init__(self, client: commands.Bot):
+        self.bot = client
 
+    async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
+        await ctx.send("An error occurred: {}".format(str(error)))
+
+#image spoiler function
+ 
+@client.command()
+async def spoiler(ctx):
+    try:
+        attachment = ctx.message.attachments[0]
+    except IndexError:
+        await ctx.message.delete()
+        await ctx.send("Attachment not found.")
+    # rename image
+    attachment.filename = f"SPOILER_{attachment.filename}"
+    spoiler_image = await attachment.to_file()
+    await ctx.message.delete()
+    await ctx.send(f"Sent by {ctx.author.name}")
+    await ctx.send(file=spoiler_image)
 for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
