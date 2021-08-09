@@ -3,7 +3,7 @@ from discord.ext import commands
 
 
 class Spoiler(commands.Cog):
-    def __init__(self, client: commands.client):
+    def __init__(self, client: commands.bot):
         self.client = client
         
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
