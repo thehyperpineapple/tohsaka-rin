@@ -69,6 +69,11 @@ async def help(ctx):
         value="Kazama baka! This is all because of you!",
         inline=False,
     )
+    embed.add_field(
+        name="spoiler",
+        value="Adds a spoiler tag to attachments",
+        inline=False,
+    )
     embed.set_footer(text="Programmed by HyperPineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
