@@ -181,7 +181,7 @@ async def on_message_delete(message):
         str(message.channel.id) in image_channels
         and not message.attachments
         and message.content[0] != "\\"
-        and message.content[0] != "!spoiler"
+        and message.content != "!spoiler"
         and message.content[:4] != "http"
     ):
         return
