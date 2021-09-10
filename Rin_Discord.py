@@ -171,13 +171,6 @@ async def on_message(message):
     await client.process_commands(message)
 
 
-@client.event
-async def on_message_edit(before, after):
-    for image_host in os.environ["IMAGE_HOSTS"].split("|"):
-        if after.author.id == 391874570740826122 and image_host in after.content:
-            await after.delete()
-            return
-
 
 @client.event
 async def on_message_delete(message):
