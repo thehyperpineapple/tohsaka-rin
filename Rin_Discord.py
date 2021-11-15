@@ -152,11 +152,11 @@ async def on_message(message):
         await message.delete()
         return
     # Delete messages containing blacklisted words
-    blacklist = os.environ["BLACKLIST"].split("|")
-    for emoji in blacklist:
-        if emoji in message.content:
-            await message.delete()
-            return
+    # blacklist = os.environ["BLACKLIST"].split("|")
+    # for emoji in blacklist:
+    # if emoji in message.content:
+    # await message.delete()
+    #   return
     await client.process_commands(message)
 
 
