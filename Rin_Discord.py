@@ -148,6 +148,7 @@ async def on_message(message):
         and not message.attachments
         and message.content[0] != "\\"
         and message.content[:4] != "http"
+        and message.content[:5] != "<http"
     ):
         await message.delete()
         return
