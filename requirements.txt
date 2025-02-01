@@ -1,4 +1,4 @@
-discord.py
+discord.py==1.6.0
 asyncio
 requests==2.24.0
 python-dotenv
