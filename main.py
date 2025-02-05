@@ -83,6 +83,11 @@ async def help(ctx):
         value="Adds a spoiler tag to attachments",
         inline=False,
     )
+    embed.add_field(
+        name="slur",
+        value="Displays the number of times this vadak kunjan has used slurs",
+        inline=False,
+    )
     embed.set_footer(text="Programmed by HyperPineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
@@ -132,8 +137,8 @@ async def _8ball(ctx, *, question):
         "You're getting in the way !",
         "Better not tell you now.",
         "I'll nail you in the Medulla Oblongata, so why dont't you go away?",
-        "A First-rate mage like myself could never reply to a loser like you!"
-        "Don’t count on Me !",
+        "A First-rate mage like myself could never reply to a loser like you!",
+        "Don’t count on Me!",
         "My reply is no.",
         "I don't agree.",
         "Outlook not so good.",
@@ -273,6 +278,15 @@ async def on_message(message):
         await message.channel.send(f"{message.author.mention}, {random.choice(SLUR_RESPONSES)}")
     
     await client.process_commands(message)  # Ensure commands are processed
+
+
+@client.command(aliases=["slurs"])
+async def slur(ctx,):
+    await ctx.message.delete()
+    with open(counter_file, 'r') as file:
+        count = file.read().strip()
+    await ctx.send(f"Pandey Randi Rona count: {count}")
+
 
 
 client.run(os.environ["TOKEN"])
