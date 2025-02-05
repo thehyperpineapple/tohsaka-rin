@@ -3,7 +3,15 @@ import discord
 from discord.ext import commands, tasks
 import os
 from dotenv import load_dotenv
-from utils.responses import RESPONSES
+from utils.responses import RESPONSES, SLUR_RESPONSES
+
+# Define the file path for the counter
+counter_file = "swear_counter.txt"
+
+# Ensure the file exists and initialize the counter if necessary
+if not os.path.exists(counter_file):
+    with open(counter_file, 'w') as file:
+        file.write('0')
 
 load_dotenv()
 
@@ -75,6 +83,11 @@ async def help(ctx):
         value="Adds a spoiler tag to attachments",
         inline=False,
     )
+    embed.add_field(
+        name="slur",
+        value="Displays the number of times this vadak kunjan has used slurs",
+        inline=False,
+    )
     embed.set_footer(text="Programmed by HyperPineapple#0452 © 2020")
     await ctx.send(embed=embed)
 
@@ -124,8 +137,8 @@ async def _8ball(ctx, *, question):
         "You're getting in the way !",
         "Better not tell you now.",
         "I'll nail you in the Medulla Oblongata, so why dont't you go away?",
-        "A First-rate mage like myself could never reply to a loser like you!"
-        "Don’t count on Me !",
+        "A First-rate mage like myself could never reply to a loser like you!",
+        "Don’t count on Me!",
         "My reply is no.",
         "I don't agree.",
         "Outlook not so good.",
@@ -243,6 +256,37 @@ async def on_message(message):
         await message.channel.send(f"{message.author.mention}, {random.choice(RESPONSES)}")
     
     await client.process_commands(message)  # Ensure commands are processed
+
+
+#Gurgaon Event
+
+SLURS = os.environ["SLURS"].split(",")
+
+@client.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    
+    # Check if the message is from the ABUSIVE and contains any trigger word
+    if message.author.id == int(os.environ['ABUSIVE_USER']) and any(word in message.content.lower() for word in SLURS):
+        # Increment the counter of slur responses
+        with open(counter_file, 'r+') as file:
+            count = int(file.read().strip())  # Read the current count
+            count += 1  # Increment the counter
+            file.seek(0)  # Move file pointer to the beginning
+            file.write(str(count))  # Write the updated counter back to the file
+        await message.channel.send(f"{message.author.mention}, {random.choice(SLUR_RESPONSES)}")
+    
+    await client.process_commands(message)  # Ensure commands are processed
+
+
+@client.command(aliases=["slurs"])
+async def slur(ctx,):
+    await ctx.message.delete()
+    with open(counter_file, 'r') as file:
+        count = file.read().strip()
+    await ctx.send(f"Pandey Randi Rona count: {count}")
+
 
 
 client.run(os.environ["TOKEN"])
