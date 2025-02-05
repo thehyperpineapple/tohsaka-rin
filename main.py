@@ -3,7 +3,15 @@ import discord
 from discord.ext import commands, tasks
 import os
 from dotenv import load_dotenv
-from utils.responses import RESPONSES
+from utils.responses import RESPONSES, SLUR_RESPONSES
+
+# Define the file path for the counter
+counter_file = "swear_counter.txt"
+
+# Ensure the file exists and initialize the counter if necessary
+if not os.path.exists(counter_file):
+    with open(counter_file, 'w') as file:
+        file.write('0')
 
 load_dotenv()
 
@@ -241,6 +249,28 @@ async def on_message(message):
     # Check if the message is from the TARGET_USER and contains any trigger word
     if message.author.id == int(os.environ['TARGET_USER']) and any(word in message.content.lower() for word in TRIGGER_WORDS):
         await message.channel.send(f"{message.author.mention}, {random.choice(RESPONSES)}")
+    
+    await client.process_commands(message)  # Ensure commands are processed
+
+
+#Gurgaon Event
+
+SLURS = os.environ["SLURS"].split(",")
+
+@client.event
+async def on_message(message):
+    if message.author.bot:
+        return
+    
+    # Check if the message is from the ABUSIVE and contains any trigger word
+    if message.author.id == int(os.environ['ABUSIVE_USER']) and any(word in message.content.lower() for word in SLURS):
+        # Increment the counter of slur responses
+        with open(counter_file, 'r+') as file:
+            count = int(file.read().strip())  # Read the current count
+            count += 1  # Increment the counter
+            file.seek(0)  # Move file pointer to the beginning
+            file.write(str(count))  # Write the updated counter back to the file
+        await message.channel.send(f"{message.author.mention}, {random.choice(SLUR_RESPONSES)}")
     
     await client.process_commands(message)  # Ensure commands are processed
 
