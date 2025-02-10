@@ -66,3 +66,18 @@ SLUR_RESPONSES = [
     "If I had a credit for every time your Astra ult missed, I could buy an entire match of full buys.",
     "Even the wall is questioning why you’re placing smokes there, and it’s not even alive."
 ]
+
+
+SAD_RESPONSES= [
+    "Look at you. Is it any wonder everyone leaves?",
+    "Just look at yourself. You drive everyone away.",
+    "You're so arrogant, it's no surprise you're alone.",
+    "No wonder you're always by yourself. Who could stand to be around you?",
+    "I wonder why people don't stick around... Oh, wait.",
+    "It's a shame you're so alone. But, well...",
+    "People come and go, I guess. Some people just aren't meant to be around others.",
+    "Look at you. No wonder she left.",
+    "No wonder your girlfriend left. You're so irresponsible.",
+    "Look at you! Don't you see why they all leave?!",
+    "How can you not see why everyone abandons you?",
+]
