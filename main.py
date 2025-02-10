@@ -3,15 +3,8 @@ import discord
 from discord.ext import commands, tasks
 import os
 from dotenv import load_dotenv
-from utils.responses import RESPONSES, SLUR_RESPONSES
+from utils.responses import RESPONSES, SLUR_RESPONSES, SAD_RESPONSES
 
-# Define the file path for the counter
-counter_file = "swear_counter.txt"
-
-# Ensure the file exists and initialize the counter if necessary
-if not os.path.exists(counter_file):
-    with open(counter_file, 'w') as file:
-        file.write('0')
 
 load_dotenv()
 
@@ -243,9 +236,20 @@ for filename in os.listdir("./cogs"):
     if filename.endswith(".py"):
         client.load_extension(f"cogs.{filename[:-3]}")
 
+
 # Anti Val event
 TRIGGER_WORDS = [f"<@{int(os.environ['VICTIM_USER'])}>", "boot", "val", "come"]  # Added commas
 
+#Gurgaon Event
+SLURS = os.environ["SLURS"].split(",")
+
+#Odia Event
+EMOJIS = os.environ["REACTIONS"].split(",")
+
+#COUNTERS
+RR_COUNTER_MSG = int(os.environ["RR_COUNTER_MSG"])
+SAD_COUNTER_MSG = int(os.environ["SAD_COUNTER_MSG"])
+COUNTER_CHANNEL = int(os.environ["COUNTER_CHANNEL"])
 @client.event
 async def on_message(message):
     if message.author.bot:
@@ -255,39 +259,55 @@ async def on_message(message):
     if message.author.id == int(os.environ['TARGET_USER']) and any(word in message.content.lower() for word in TRIGGER_WORDS):
         await message.channel.send(f"{message.author.mention}, {random.choice(RESPONSES)}")
     
-    await client.process_commands(message)  # Ensure commands are processed
-
-
-#Gurgaon Event
-
-SLURS = os.environ["SLURS"].split(",")
-
-@client.event
-async def on_message(message):
-    if message.author.bot:
-        return
     
     # Check if the message is from the ABUSIVE and contains any trigger word
     if message.author.id == int(os.environ['ABUSIVE_USER']) and any(word in message.content.lower() for word in SLURS):
-        # Increment the counter of slur responses
-        with open(counter_file, 'r+') as file:
-            count = int(file.read().strip())  # Read the current count
-            count += 1  # Increment the counter
-            file.seek(0)  # Move file pointer to the beginning
-            file.write(str(count))  # Write the updated counter back to the file
+        target_channel = client.get_channel(COUNTER_CHANNEL)
+        counter_message = await target_channel.fetch_message(RR_COUNTER_MSG)
+        current_content = counter_message.content
+        current_count = int(current_content.split(": ")[1])
+        new_count = current_count + 1
+        await counter_message.edit(content=f"Pandey Randi Rona count: {new_count}")
         await message.channel.send(f"{message.author.mention}, {random.choice(SLUR_RESPONSES)}")
+        
+
+    
+    # Check if the message is from the SAD_USER and contains any trigger word
+    if message.author.id == int(os.environ['SAD_USER']) and any(word in message.content.lower() for word in EMOJIS):
+        target_channel = client.get_channel(COUNTER_CHANNEL)
+        counter_message = await target_channel.fetch_message(SAD_COUNTER_MSG)
+        current_content = counter_message.content
+        current_count = int(current_content.split(": ")[1])
+        new_count = current_count + 1
+        await counter_message.edit(content=f"Patro Sad count: {new_count}")
+        await message.channel.send(f"{message.author.mention}, {random.choice(SAD_RESPONSES)}")
+        
+
     
     await client.process_commands(message)  # Ensure commands are processed
 
 
 @client.command(aliases=["slurs"])
 async def slur(ctx,):
-    await ctx.message.delete()
-    with open(counter_file, 'r') as file:
-        count = file.read().strip()
-    await ctx.send(f"Pandey Randi Rona count: {count}")
+    #TODO: Get the number of times the ABUSIVE has used slurs
+    target_channel = client.get_channel(COUNTER_CHANNEL)
+    counter_message = await target_channel.fetch_message(RR_COUNTER_MSG)
+    current_content = counter_message.content
+    current_count = int(current_content.split(": ")[1])
+    await ctx.send(content=f"Pandey Randi Rona count: {current_count}")
+    pass
+
+@client.command(aliases=["patro"])
+async def sad(ctx,):
+    #TODO: Get the number of times the SAD has been sad
+    #
+    target_channel = client.get_channel(COUNTER_CHANNEL)
+    counter_message = await target_channel.fetch_message(SAD_COUNTER_MSG)
+    current_content = counter_message.content
+    current_count = int(current_content.split(": ")[1])
+    await ctx.send(content=f"Patro Sad count: {current_count}")
+    pass
 
 
 
 client.run(os.environ["TOKEN"])
-
