@@ -168,45 +168,45 @@ async def say(ctx, *, msg):
 #     await client.process_commands(message)
 
 
-@client.event
-async def on_message_delete(message):
-    image_channels = os.environ["IMAGE_CHANNELS"].split("|")
-    if (
-        str(message.channel.id) in image_channels
-        and not message.attachments
-        and message.content[0] != "\\"
-        and message.content != "!spoiler"
-        and message.content[:4] != "http"
-        and message.content[:5] != "<http"
-    ):
-        return
-    # Delete messages containing blacklisted words
-    blacklist = os.environ["BLACKLIST"].split("|")
-    for emoji in blacklist:
-        if emoji in message.content:
-            return
-    kaz = os.getenv("KAZ").split("|")
-    if str(message.author).split("#")[0] not in kaz:
-        return
-    webhooks = await message.channel.webhooks()
-    if len(webhooks) == 0:
-        webhook = await message.channel.create_webhook(name="kaz")
-    else:
-        webhook = webhooks[0]
-    try:
-        username = message.author.nick
-    except:
-        username = str(message.author).split("#")[0]
-    if len(message.content) == 0:
-        await webhooks[0].send(
-            "I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me",
-            username=username,
-            avatar_url=message.author.avatar_url,
-        )
-    else:
-        await webhooks[0].send(
-            message.content, username=username, avatar_url=message.author.avatar_url
-        )
+# @client.event
+# async def on_message_delete(message):
+#     image_channels = os.environ["IMAGE_CHANNELS"].split("|")
+#     if (
+#         str(message.channel.id) in image_channels
+#         and not message.attachments
+#         and message.content[0] != "\\"
+#         and message.content != "!spoiler"
+#         and message.content[:4] != "http"
+#         and message.content[:5] != "<http"
+#     ):
+#         return
+#     # Delete messages containing blacklisted words
+#     blacklist = os.environ["BLACKLIST"].split("|")
+#     for emoji in blacklist:
+#         if emoji in message.content:
+#             return
+#     kaz = os.getenv("KAZ").split("|")
+#     if str(message.author).split("#")[0] not in kaz:
+#         return
+#     webhooks = await message.channel.webhooks()
+#     if len(webhooks) == 0:
+#         webhook = await message.channel.create_webhook(name="kaz")
+#     else:
+#         webhook = webhooks[0]
+#     try:
+#         username = message.author.nick
+#     except:
+#         username = str(message.author).split("#")[0]
+#     if len(message.content) == 0:
+#         await webhooks[0].send(
+#             "I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me",
+#             username=username,
+#             avatar_url=message.author.avatar_url,
+#         )
+#     else:
+#         await webhooks[0].send(
+#             message.content, username=username, avatar_url=message.author.avatar_url
+#         )
 
 class Spoiler(commands.Cog):
     def __init__(self, client: commands.Bot):
@@ -246,6 +246,7 @@ SLURS = os.environ["SLURS"].split(",")
 #Odia Event
 EMOJIS = os.environ["REACTIONS"].split(",")
 
+
 #COUNTERS
 RR_COUNTER_MSG = int(os.environ["RR_COUNTER_MSG"])
 SAD_COUNTER_MSG = int(os.environ["SAD_COUNTER_MSG"])
@@ -282,7 +283,10 @@ async def on_message(message):
         await counter_message.edit(content=f"Patro Sad count: {new_count}")
         await message.channel.send(f"{message.author.mention}, {random.choice(SAD_RESPONSES)}")
         
-
+    # Check if message is from CRINGE_USER and delete if it contains the word gif
+    if message.author.id == int(os.environ['CRINGE_USER']) and "gif" in message.content:
+        await message.delete()
+        await message.channel.send(f"{message.author.mention}, you are not allowed to send gifs.")
     
     await client.process_commands(message)  # Ensure commands are processed
 
