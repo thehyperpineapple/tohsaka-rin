@@ -1,7 +1,7 @@
 # .Dockerfile
 
-# Use a minimal Python 3.9 image
-FROM python:3.9-slim
+# Use a minimal Python 3.12 image
+FROM python:3.12-slim
 
 # Set the working directory
 WORKDIR /app

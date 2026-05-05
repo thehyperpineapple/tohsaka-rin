@@ -1,10 +1,11 @@
 import discord
 from discord.ext import commands
 
-class mod (commands.Cog):
+
+class FateGO(commands.Cog):
     def __init__(self, client):
         self.client = client
-    
+
     @commands.command(aliases=["fgo"])
     async def fategrandorder(self, ctx):
         embed = discord.Embed(colour=discord.Colour.dark_red(), title="Fate/Grand Order (NA)", description="Commands Dedicated to the Fate/Grand Order game")
@@ -55,7 +56,7 @@ class mod (commands.Cog):
         embed = discord.Embed(colour=discord.Colour.dark_red(), title="Upcoming banners in Fate/Grand Order (NA)", description="Remember to not waste SQ")
         embed.set_thumbnail(url="https://imgur.com/KC2QvmL.png")
         embed.set_image(url="https://imgur.com/CxpAefZ.png")
-        await ctx.send(embed = embed)
+        await ctx.send(embed=embed)
 
     @commands.command()
     async def classchart(self, ctx):
@@ -66,9 +67,8 @@ class mod (commands.Cog):
 
     @commands.command()
     async def event(self, ctx):
-        await ctx.send("**Here is a link for the Current/Upcoming Events in Fate Grand Order (NA)** \nhttps://fategrandorder.fandom.com/wiki/Event_List_(US)")    
+        await ctx.send("**Here is a link for the Current/Upcoming Events in Fate Grand Order (NA)** \nhttps://fategrandorder.fandom.com/wiki/Event_List_(US)")
 
 
-
-def setup(client):
-    client.add_cog(mod(client))
+async def setup(client):
+    await client.add_cog(FateGO(client))

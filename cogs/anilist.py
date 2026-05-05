@@ -728,5 +728,5 @@ class anilist (commands.Cog):
         )
         await ctx.send(embed=embed)
         
-def setup(client):
-    client.add_cog(anilist(client))        
+async def setup(client):
+    await client.add_cog(anilist(client))        

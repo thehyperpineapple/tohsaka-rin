@@ -1,6 +1,7 @@
+import asyncio
 import random
 import discord
-from discord.ext import commands, tasks
+from discord.ext import commands
 import os
 from dotenv import load_dotenv
 from utils.responses import RESPONSES, SLUR_RESPONSES, SAD_RESPONSES
@@ -8,7 +9,11 @@ from utils.responses import RESPONSES, SLUR_RESPONSES, SAD_RESPONSES
 
 load_dotenv()
 
-client = commands.Bot(command_prefix="-")
+intents = discord.Intents.default()
+intents.message_content = True
+intents.members = True
+
+client = commands.Bot(command_prefix="-", intents=intents)
 client.remove_command("help")
 
 
@@ -22,12 +27,12 @@ async def on_ready():
 
 @client.command()
 async def load(ctx, extension):
-    client.load_extension(f"cogs.{extension}")
+    await client.load_extension(f"cogs.{extension}")
 
 
 @client.command()
 async def unload(ctx, extension):
-    client.unload_extension(f"cogs.{extension}")
+    await client.unload_extension(f"cogs.{extension}")
 
 
 @client.command()
@@ -37,7 +42,7 @@ async def help(ctx):
         title="Help Command",
         description="My prefix is - and this is what I can do",
     )
-    embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+    embed.set_author(name=client.user.name, icon_url=client.user.display_avatar.url)
     embed.add_field(name="help", value="Displays this Message.", inline=False)
     embed.add_field(
         name="ping", value="I reply with your latency and a pong!", inline=False
@@ -92,7 +97,7 @@ async def mod(ctx):
         title="Moderation Commands",
         description="Here are the moderation commands",
     )
-    embed.set_author(name=client.user.name, icon_url=client.user.avatar_url)
+    embed.set_author(name=client.user.name, icon_url=client.user.display_avatar.url)
     embed.add_field(
         name="clear", value="I'm going make your messages disappear.", inline=False
     )
@@ -131,7 +136,7 @@ async def _8ball(ctx, *, question):
         "Better not tell you now.",
         "I'll nail you in the Medulla Oblongata, so why dont't you go away?",
         "A First-rate mage like myself could never reply to a loser like you!",
-        "Don’t count on Me!",
+        "Don't count on Me!",
         "My reply is no.",
         "I don't agree.",
         "Outlook not so good.",
@@ -146,68 +151,6 @@ async def say(ctx, *, msg):
     await ctx.send("{}".format(msg))
 
 
-# @client.event
-# async def on_message(message):
-#     # Delete messages without attachments sent in image-only channels
-#     image_channels = os.environ["IMAGE_CHANNELS"].split("|")
-#     if (
-#         str(message.channel.id) in image_channels
-#         and not message.attachments
-#         and message.content[0] != "\\"
-#         and message.content[:4] != "http"
-#         and message.content[:5] != "<http"
-#     ):
-#         await message.delete()
-#         return
-#     # Delete messages containing blacklisted words
-#     # blacklist = os.environ["BLACKLIST"].split("|")
-#     # for emoji in blacklist:
-#     # if emoji in message.content:
-#     # await message.delete()
-#     #   return
-#     await client.process_commands(message)
-
-
-# @client.event
-# async def on_message_delete(message):
-#     image_channels = os.environ["IMAGE_CHANNELS"].split("|")
-#     if (
-#         str(message.channel.id) in image_channels
-#         and not message.attachments
-#         and message.content[0] != "\\"
-#         and message.content != "!spoiler"
-#         and message.content[:4] != "http"
-#         and message.content[:5] != "<http"
-#     ):
-#         return
-#     # Delete messages containing blacklisted words
-#     blacklist = os.environ["BLACKLIST"].split("|")
-#     for emoji in blacklist:
-#         if emoji in message.content:
-#             return
-#     kaz = os.getenv("KAZ").split("|")
-#     if str(message.author).split("#")[0] not in kaz:
-#         return
-#     webhooks = await message.channel.webhooks()
-#     if len(webhooks) == 0:
-#         webhook = await message.channel.create_webhook(name="kaz")
-#     else:
-#         webhook = webhooks[0]
-#     try:
-#         username = message.author.nick
-#     except:
-#         username = str(message.author).split("#")[0]
-#     if len(message.content) == 0:
-#         await webhooks[0].send(
-#             "I'm a dumbass pleb who just deleted a message for probably no reason, don't mind me",
-#             username=username,
-#             avatar_url=message.author.avatar_url,
-#         )
-#     else:
-#         await webhooks[0].send(
-#             message.content, username=username, avatar_url=message.author.avatar_url
-#         )
-
 class Spoiler(commands.Cog):
     def __init__(self, client: commands.Bot):
         self.bot = client
@@ -215,8 +158,7 @@ class Spoiler(commands.Cog):
     async def cog_command_error(self, ctx: commands.Context, error: commands.CommandError):
         await ctx.send("An error occurred: {}".format(str(error)))
 
-#image spoiler function
- 
+
 @client.command()
 async def spoiler(ctx):
     try:
@@ -224,43 +166,38 @@ async def spoiler(ctx):
     except IndexError:
         await ctx.message.delete()
         await ctx.send("Attachment not found.")
-    # rename image
+        return
     attachment.filename = f"SPOILER_{attachment.filename}"
     spoiler_image = await attachment.to_file()
     await ctx.message.delete()
     await ctx.send(f"Sent by {ctx.author.name}")
     await ctx.send(file=spoiler_image)
 
-# Load cogs
-for filename in os.listdir("./cogs"):
-    if filename.endswith(".py"):
-        client.load_extension(f"cogs.{filename[:-3]}")
-
 
 # Anti Val event
-TRIGGER_WORDS = [f"<@{int(os.environ['VICTIM_USER'])}>", "boot", "val", "come"]  # Added commas
+TRIGGER_WORDS = [f"<@{int(os.environ['VICTIM_USER'])}>", "boot", "val", "come"]
 
-#Gurgaon Event
+# Gurgaon Event
 SLURS = os.environ["SLURS"].split(",")
 
-#Odia Event
+# Odia Event
 EMOJIS = os.environ["REACTIONS"].split(",")
 
-
-#COUNTERS
+# COUNTERS
 RR_COUNTER_MSG = int(os.environ["RR_COUNTER_MSG"])
 SAD_COUNTER_MSG = int(os.environ["SAD_COUNTER_MSG"])
 COUNTER_CHANNEL = int(os.environ["COUNTER_CHANNEL"])
+
+
 @client.event
 async def on_message(message):
     if message.author.bot:
         return
-    
+
     # Check if the message is from the TARGET_USER and contains any trigger word
     if message.author.id == int(os.environ['TARGET_USER']) and any(word in message.content.lower() for word in TRIGGER_WORDS):
         await message.channel.send(f"{message.author.mention}, {random.choice(RESPONSES)}")
-    
-    
+
     # Check if the message is from the ABUSIVE and contains any trigger word
     if message.author.id == int(os.environ['ABUSIVE_USER']) and any(word in message.content.lower() for word in SLURS):
         target_channel = client.get_channel(COUNTER_CHANNEL)
@@ -270,9 +207,7 @@ async def on_message(message):
         new_count = current_count + 1
         await counter_message.edit(content=f"Pandey Randi Rona count: {new_count}")
         await message.channel.send(f"{message.author.mention}, {random.choice(SLUR_RESPONSES)}")
-        
 
-    
     # Check if the message is from the SAD_USER and contains any trigger word
     if message.author.id == int(os.environ['SAD_USER']) and any(word in message.content.lower() for word in EMOJIS):
         target_channel = client.get_channel(COUNTER_CHANNEL)
@@ -282,36 +217,38 @@ async def on_message(message):
         new_count = current_count + 1
         await counter_message.edit(content=f"Patro Sad count: {new_count}")
         await message.channel.send(f"{message.author.mention}, {random.choice(SAD_RESPONSES)}")
-        
+
     # Check if message is from CRINGE_USER and delete if it contains the word gif
     if message.author.id == int(os.environ['CRINGE_USER']) and "gif" in message.content:
         await message.delete()
         await message.channel.send(f"{message.author.mention}, you are not allowed to send gifs.")
-    
-    await client.process_commands(message)  # Ensure commands are processed
+
+    await client.process_commands(message)
 
 
 @client.command(aliases=["slurs"])
-async def slur(ctx,):
-    #TODO: Get the number of times the ABUSIVE has used slurs
+async def slur(ctx):
     target_channel = client.get_channel(COUNTER_CHANNEL)
     counter_message = await target_channel.fetch_message(RR_COUNTER_MSG)
     current_content = counter_message.content
     current_count = int(current_content.split(": ")[1])
     await ctx.send(content=f"Pandey Randi Rona count: {current_count}")
-    pass
+
 
 @client.command(aliases=["patro"])
-async def sad(ctx,):
-    #TODO: Get the number of times the SAD has been sad
-    #
+async def sad(ctx):
     target_channel = client.get_channel(COUNTER_CHANNEL)
     counter_message = await target_channel.fetch_message(SAD_COUNTER_MSG)
     current_content = counter_message.content
     current_count = int(current_content.split(": ")[1])
     await ctx.send(content=f"Patro Sad count: {current_count}")
-    pass
 
 
+async def main():
+    async with client:
+        for filename in os.listdir("./cogs"):
+            if filename.endswith(".py"):
+                await client.load_extension(f"cogs.{filename[:-3]}")
+        await client.start(os.environ["TOKEN"])
 
-client.run(os.environ["TOKEN"])
+asyncio.run(main())

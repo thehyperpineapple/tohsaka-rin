@@ -2,7 +2,8 @@ import discord
 from discord.ext import commands
 import random
 
-class anifact (commands.Cog):
+
+class Anifact(commands.Cog):
     def __init__(self, client):
         self.client = client
 
@@ -20,7 +21,7 @@ class anifact (commands.Cog):
                  "Everyone In Code Geass Loves Pizza Because The Series Was Funded By Pizza Hut.",
                  "Death Note Inspired Chinese Children To Write Down The Names Of Their Teachers.",
                  "Noragami literally means Stray God.",
-                 "Eren's mom lied about her legs being broken to save Eren and Mikasa from the Titans.", 
+                 "Eren's mom lied about her legs being broken to save Eren and Mikasa from the Titans.",
                  "10% of anime nudgets goes to drawing eyes and bento boxes.",
                  "Angel Beats was originally going to have 26 episodes.",
                  "Kiyoko and Oikawa are the hardest characters to draw in Haikyuu.",
@@ -31,7 +32,7 @@ class anifact (commands.Cog):
                  "If Kuroko had an alternate job it would be a kindergarden teacher.",
                  "Bleach was originally called Snipe and featured Rukia with a Scythe as the main character.",
                  "Muzan is a very good in disguises.",
-                 "Nezuko’s Eyes Changed Colors After Her Transformation.",
+                 "Nezuko's Eyes Changed Colors After Her Transformation.",
                  "Bakugo can cook.",
                  "The strongest servant without a hint of doubt is the legendary king of heroes, Gilgamesh.",
                  "For years, Shirou could've died prior to Fate/Stay Night by practicing the most dangerous method of strengthening objects.",
@@ -40,7 +41,7 @@ class anifact (commands.Cog):
                  "Asta was trained by an enemy soldier.",
                  "Yami Sukehiro, Black Bull Captain likes gambling.",
                  "Vanessa has a one-sided flirtatious relationship with her captain, Yami Sukehiro, constantly asking him out to drink with her and to have fun.",
-                 "Gilgamesh is a Mage in Fate/Grand Order Absolute Demonic Front Babylonia as he is the living ruler of Uruk at that time.", 
+                 "Gilgamesh is a Mage in Fate/Grand Order Absolute Demonic Front Babylonia as he is the living ruler of Uruk at that time.",
                  "Akira Toriyama forgot about Launch in the Dragon Ball Franchise.",
                  "Zeno-sama destoyed 6 universes because he was bored.",
                  "Patora fussion is said to Be permanent in DBZ but in DBS Vegitto go back to original form.",
@@ -55,10 +56,8 @@ class anifact (commands.Cog):
                  "Natsu's foster father is the Dragon Igneel",
                  "Natsu can absorb any flame without any problem"]
         embed = discord.Embed(colour=discord.Colour.dark_red(), title="Anime Fact", description=f"{random.choice(facts)}")
-        embed.set_footer()
-        await ctx.send(embed=embed)    
+        await ctx.send(embed=embed)
 
 
-
-def setup(client):
-    client.add_cog(anifact(client))
+async def setup(client):
+    await client.add_cog(Anifact(client))
